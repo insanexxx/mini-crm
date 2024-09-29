@@ -1,66 +1,181 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Project with Companies and Employees Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This Laravel application allows you to manage `Companies` and `Employees`. It includes basic CRUD (Create, Read, Update, Delete) functionality with pagination and form validation.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- User authentication via Laravel Breeze.
+- Management of `Companies` and `Employees`.
+- Pagination for `Companies` and `Employees`.
+- CRUD operations for both entities.
+- TailwindCSS for responsive design and styling.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Follow these steps to set up the project on your local environment:
 
-## Learning Laravel
+### Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.0+
+- Composer
+- MySQL or any other supported database
+- Node.js & NPM
+- [Laravel](https://laravel.com/docs/10.x/installation)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Steps
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone the repository:**
 
-## Laravel Sponsors
+   ```bash
+   git clone https://github.com/insanexxx/mini-crm.git
+   cd mini-crm
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install dependencies:**
 
-### Premium Partners
+    ```bash
+    composer install
+    npm install
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Set up the environment:**
+
+    Copy the .env.example file and create a new .env file:
+        
+        cp .env.example .env
+
+    Configure your database connection in the .env file:
+        
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=your_database
+        DB_USERNAME=your_username
+        DB_PASSWORD=your_password
+
+4. **Set up the environment:**
+
+    ```bash
+    php artisan key:generate
+    ```
+
+5. **Run migrations to set up the database:**
+
+    ```bash
+    php artisan migrate
+    ```
+
+6. **Compile front-end assets:**
+
+    ```bash
+    npm run dev
+    ```
+
+7. **Run the development server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+## Usage
+
+### Authentication
+
+This project uses Laravel Breeze for user authentication. To create a user, use the registration page or add a user manually via tinker:
+
+    php artisan tinker
+
+    $user = new App\Models\User();
+    $user->name = 'Your Name';
+    $user->email = 'your.email@example.com';
+    $user->password = bcrypt('your-password');
+    $user->save();
+
+### Companies Management
+
+- Create a new company: Click on the "Create Company" button in the Companies section of the dashboard.
+- Edit or Delete a company: Use the links next to each company in the list.
+
+### Employees Management
+
+- Create a new employee: Click on the "Create Employee" button in the Employees section of the dashboard.
+- Edit or Delete an employee: Use the links next to each employee in the list.
+
+### Pagination
+
+Both the Companies and Employees lists support pagination. By default, 10 records per page are displayed. You can change this value by modifying the paginate() method in the respective controller.
+
+    $companies = Company::paginate(10);
+
+### Form Validation
+
+Both companies and employees have basic form validation when creating or updating records. If the validation fails, appropriate error messages are displayed.
+
+### Tailwind CSS Styling
+
+The project uses Tailwind CSS for styling. The Tailwind configuration is located in tailwind.config.js, and custom styles can be added in resources/css/app.css.
+
+To recompile the assets after making changes:
+
+    npm run dev
+
+
+## Routes
+
+### Web Interface
+
+- **Home Page** — `GET /`  
+  Redirects to the home page.
+
+- **Dashboard** — `GET /dashboard`  
+  Requires authentication.
+
+- **List of Companies** — `GET /companies`  
+  Displays a list of all companies.
+
+- **Create Company** — `GET /companies/create`  
+  Redirects to the page for creating a new company.
+
+- **Edit Company** — `GET /companies/{company}/edit`  
+  Redirects to the page for editing the selected company.
+
+- **List of Employees** — `GET /employees`  
+  Displays a list of all employees.
+
+- **Create Employee** — `GET /employees/create`  
+  Redirects to the page for creating a new employee.
+
+- **Edit Employee** — `GET /employees/{employee}/edit`  
+  Redirects to the page for editing the selected employee.
+
+### REST API
+
+- **List All Employees** — `GET /api/employees`  
+  Returns JSON data of all employees. Requires API token authentication (Sanctum).
+
+- **Create a New Employee** — `POST /api/employees`  
+  Creates a new employee via the API.
+
+- **Update Employee Data** — `PUT /api/employees/{id}`  
+  Updates the employee's data.
+
+- **Delete Employee** — `DELETE /api/employees/{id}`  
+  Deletes the employee.
+
+## Authentication
+
+To work with secured routes through the API, you need to obtain a token using the Sanctum package:
+
+1. Log in through the web interface.
+2. Obtain an access token for the API using the following request:
+    ```bash
+    POST /login
+    ```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Feel free to open issues or submit pull requests for any features, bugs, or improvements.
 
-## Code of Conduct
+### License
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

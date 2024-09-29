@@ -9,6 +9,8 @@ class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -18,6 +20,8 @@ class EmployeeController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -26,6 +30,9 @@ class EmployeeController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -38,6 +45,7 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($request->all());
+
         return redirect()->route('employees.index')->with('success', 'Сотрудник успешно создан.');
     }
 
@@ -51,6 +59,9 @@ class EmployeeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Employee  $employee
+     * @return \Illuminate\View\View
      */
     public function edit(Employee $employee)
     {
@@ -60,6 +71,10 @@ class EmployeeController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Employee  $employee
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Employee $employee)
     {
@@ -77,6 +92,9 @@ class EmployeeController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Employee  $employee
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Employee $employee)
     {
